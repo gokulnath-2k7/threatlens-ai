@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: threatlens_db
+    environment:
+      POSTGRES_USER: threatlens
+      POSTGRES_PASSWORD: threatlens_secure_password_2026
+      POSTGRES_DB: threatlens_soc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: threatlens_backend
+    environment:
+      DATABASE_URL: postgresql://threatlens:threatlens_secure_password_2026@postgres:5432/threatlens_soc
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-super_secret_jwt_key_threatlens_2026}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: threatlens_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

@@ -1,0 +1,6 @@
+{
+  "name": "ThreatLens AI",
+  "description": "Autonomous Multi-Agent SOC Investigation & Evidence Verification System with MITRE ATT&CK mapping, ML risk detection, tamper-evident audit hash chain, and analyst-in-the-loop response approval.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
