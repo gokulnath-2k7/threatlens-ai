@@ -24,6 +24,86 @@ import {
   AuditLog,
 } from './types';
 
+const DEMO_DASHBOARD_DATA: DashboardData = {
+  kpis: {
+    total_alerts: 128,
+    critical_alerts: 12,
+    active_incidents: 7,
+    verified_incidents: 5,
+    average_risk: 72,
+    average_confidence: 89,
+    investigation_time_seconds: 48,
+    evidence_verification_rate: 94
+  },
+
+  alert_trends: [
+    { time: '00:00', count: 8, critical: 1 },
+    { time: '04:00', count: 12, critical: 2 },
+    { time: '08:00', count: 19, critical: 2 },
+    { time: '12:00', count: 25, critical: 3 },
+    { time: '16:00', count: 31, critical: 2 },
+    { time: '20:00', count: 33, critical: 2 }
+  ],
+
+  severity_distribution: [
+    { name: 'Critical', value: 12, color: '#ef4444' },
+    { name: 'High', value: 31, color: '#f97316' },
+    { name: 'Medium', value: 49, color: '#eab308' },
+    { name: 'Low', value: 36, color: '#22c55e' }
+  ],
+
+  threat_categories: [
+    { category: 'Credential Attack', count: 28 },
+    { category: 'Malware', count: 24 },
+    { category: 'Lateral Movement', count: 19 },
+    { category: 'Data Exfiltration', count: 16 },
+    { category: 'Privilege Escalation', count: 14 },
+    { category: 'Reconnaissance', count: 11 }
+  ],
+
+  incident_status_breakdown: [
+    { status: 'Open', count: 3 },
+    { status: 'Investigating', count: 4 },
+    { status: 'Contained', count: 5 },
+    { status: 'Resolved', count: 9 }
+  ],
+
+  mitre_frequency: [
+    {
+      technique_id: 'T1059',
+      name: 'Command and Scripting Interpreter',
+      count: 18
+    },
+    {
+      technique_id: 'T1078',
+      name: 'Valid Accounts',
+      count: 14
+    },
+    {
+      technique_id: 'T1055',
+      name: 'Process Injection',
+      count: 11
+    },
+    {
+      technique_id: 'T1021',
+      name: 'Remote Services',
+      count: 9
+    },
+    {
+      technique_id: 'T1041',
+      name: 'Exfiltration Over C2 Channel',
+      count: 7
+    }
+  ],
+
+  edge_inference_stats: {
+    events_ingested: 12540,
+    edge_filtered_clean: 10872,
+    dispatched_to_fastapi: 1668,
+    avg_latency_ms: 42
+  }
+};
+
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User>({
     id: 'usr-1',
@@ -35,7 +115,8 @@ export default function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+ const [dashboardData, setDashboardData] =
+  useState<DashboardData>(DEMO_DASHBOARD_DATA);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
